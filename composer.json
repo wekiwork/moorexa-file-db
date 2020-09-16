@@ -1,0 +1,26 @@
+{
+    "name": "wekiwork/moorexa-file-db",
+    "description": "Moorexa components for file Database administration",
+    "homepage": "https://github.com/wekiwork/moorexa-file-db",
+    "license": "MIT",
+    "keywords": [
+        "wekiwork",
+        "moorexa",
+        "darviews",
+        "dv-labs"
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "LightRoom\\": "/"
+        }
+    },
+    "scripts": {
+
+    }
+}
