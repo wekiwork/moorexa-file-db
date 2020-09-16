@@ -1,12 +1,13 @@
 <?php
-namespace Lightroom;
+namespace Lightroom\Component\FileDB;
 
 use Closure;
+
 /**
  * @package FileDBClient
  * @author Amadi Ifeanyi <amadiify.com>
  */
-class FileDBClient
+class Client
 {
     private static $baseDir = '/fdb/';
     private static $extension = '.fdb';
@@ -14,12 +15,18 @@ class FileDBClient
     private static $errorMessage = '';
     public  static $runTimeErrors = [];
 
-
     // load function wrapper
     public static function initFunctions()
     {
-        // include FileDBFunctions.php
-        include_once 'FileDBFunctions.php';
+        if(! function_exists('fdb'))    {
+            // include FileDBFunctions.php
+            require_once __DIR__.DIRECTORY_SEPARATOR.'Function.php';
+        }
+    }
+    // load function wrapper
+    public static function getInstance()
+    {
+       return self::getInstance() ;
     }
 
     // load json data
@@ -38,7 +45,7 @@ class FileDBClient
         if (is_string($data)) :
 
             // load json data
-            $data = json_decode(trim($data));
+            $data = \json_decode(trim($data));
 
             // is object
             if (is_object($data)) :
@@ -171,7 +178,7 @@ class FileDBClient
 
         return new class($data, $table)
         {
-            use FileDBMethods;
+            use TraitMethod;
 
             // properties
             public $status = 'success';
@@ -198,7 +205,7 @@ class FileDBClient
                 $this->rows = (is_array($data) ? count($data) : count(((array) $data)));
 
                 // set runtime error
-                $this->errors = FileDBClient::$runTimeErrors;
+                $this->errors = Client::$runTimeErrors;
             }
         };
     }
@@ -208,7 +215,7 @@ class FileDBClient
     {
         // create class
         $class = new class($data){
-            use FileDBMethods;
+            use TraitMethod;
         };
 
         // load closure function
@@ -263,7 +270,7 @@ class FileDBClient
                 if (isset($_ENV['filedb']['basedir'])) :
 
                     // get the base directory
-                    $baseDir = get_path_from_constant($_ENV['filedb']['basedir']);
+                    $baseDir = realpath($_ENV['filedb']['basedir']);
 
                     // @var string $extension
                     $extension = self::$extension;
@@ -298,7 +305,7 @@ class FileDBClient
             if (file_exists($tableFile)) :
 
                 // read table
-                $tableData = json_decode(file_get_contents($tableFile));
+                $tableData = \json_decode(\file_get_contents($tableFile));
 
                 // set pointer
                 $pointer = 1;
@@ -323,7 +330,6 @@ class FileDBClient
             'pointer' => $pointer,
             'targetArray' => $targetArray
         ];
-
         // all good ?
         return ($tableData === null) ? false : true;
     }

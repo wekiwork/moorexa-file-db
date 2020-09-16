@@ -1,10 +1,10 @@
 <?php 
-namespace FileDB;
+namespace Lightroom\Component\FileDB;
 /**
- * @package FileDBMethods
+ * @package TraitMethod
  * @author Amadi Ifeanyi <amadiify.com>
  */
-trait FileDBMethods 
+trait TraitMethod
 {
     /**
      * @var mixed $data
@@ -12,7 +12,7 @@ trait FileDBMethods
     private $data = [];
 
     /**
-     * @method FileDBMethods __construct
+     * @method TraitMethod __construct
      * lOAD Data
      */
     public function __construct($data)
@@ -21,7 +21,7 @@ trait FileDBMethods
     }
 
     /**
-     * @method FileDBMethods limit
+     * @method TraitMethod limit
      * Limit records
      */
     public function limit(int $start, int $end)
@@ -64,7 +64,7 @@ trait FileDBMethods
     }
 
     /**
-     * @method FileDBMethods first
+     * @method TraitMethod first
      * Get the first record
      * @return mixed
      */
@@ -92,7 +92,7 @@ trait FileDBMethods
     }
 
     /**
-     * @method FileDBMethods last
+     * @method TraitMethod last
      * Get the last record
      * @return mixed
      */
@@ -123,7 +123,7 @@ trait FileDBMethods
     }
 
     /**
-     * @method FileDBMethods index
+     * @method TraitMethod index
      * Fetch from an index
      * @param int $index
      * @return mixed
@@ -158,10 +158,10 @@ trait FileDBMethods
     }
 
     /**
-     * @method FileDBMethods fetch
+     * @method TraitMethod fetch
      * @param string $fetchMethod
      */
-    public function fetch(string $fetchMethod = '')
+    public function fetch(string $fetchMethod = null)
     {
         // @var array $cache
         static $cache;
@@ -199,7 +199,7 @@ trait FileDBMethods
     }
 
     /**
-     * @method FileDBMethods where
+     * @method TraitMethod where
      * @param string $statement
      * @param array $args 
      */
@@ -281,7 +281,7 @@ trait FileDBMethods
     }
 
     /**
-     * @method FileDBMethods result
+     * @method TraitMethod result
      * @return mixed
      */
     public function results()
@@ -290,7 +290,7 @@ trait FileDBMethods
     }
 
     /**
-     * @method FileDBMethods __get
+     * @method TraitMethod __get
      * @param string $key 
      */
     public function __get(string $key)
@@ -299,7 +299,7 @@ trait FileDBMethods
     }
 
     /**
-     * @method FileDBMethods value
+     * @method TraitMethod value
      * @param string $key 
      * @return mixed
      */
@@ -312,7 +312,7 @@ trait FileDBMethods
     }
 
     /**
-     * @method FileDBMethods __call
+     * @method TraitMethod __call
      * @param string $key 
      * @param array $arguments
      * 
@@ -417,7 +417,7 @@ trait FileDBMethods
                 // failed
                 $checkNext = false;
                 // set the error message
-                FileDBClient::$runTimeErrors[$keyIndex] = 'Missing Bind for ' . $keyIndex;
+                Client::$runTimeErrors[$keyIndex] = 'Missing Bind for ' . $keyIndex;
             else:
 
                 // is array
